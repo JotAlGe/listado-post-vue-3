@@ -20,12 +20,10 @@ export default {
             posts: []
         }
     },
-    mounted() {
-        fetch('https://jsonplaceholder.typicode.com/posts')
-            .then(response => response.json())
-            .then(json => {
-                this.posts = json
-            })
+    async mounted() {
+        const response = await fetch('https://jsonplaceholder.typicode.com/posts')
+        const posts = await response.json()
+        this.posts = posts
     }
 }
 </script>
