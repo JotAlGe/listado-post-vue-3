@@ -1,9 +1,13 @@
 <template>
-    <div>
-        <div class="grid">
-            <div v-for="post in posts" :key="post.id">
-                <h3> <span class="title-body">Title:</span> {{ post.title }}</h3>
-                <p> <span class="title-body">Body:</span>{{ post.body }} </p>
+    <div class="grid-container">
+        <div v-for="post in posts" :key="post.id" class="grid-item">
+            <div class="card">
+                <div class="card-header">
+                    {{ post.title }}
+                </div>
+            </div>
+            <div class="card-body">
+                <p>{{ post.body }} </p>
             </div>
         </div>
     </div>
@@ -27,8 +31,35 @@ export default {
 </script>
 
 <style>
-.title-body {
-    font-size: 1.4rem;
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-gap: 16px;
+}
+
+.grid-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 5% 0 5%;
+    justify-content: center;
+    border: 1px solid green;
+    border-radius: 25px;
+}
+
+.card {
+    width: 300px;
+    padding: 16px;
+
+}
+
+.card-header {
+    font-size: 18px;
     font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.card-body {
+    font-size: 14px;
 }
 </style>
