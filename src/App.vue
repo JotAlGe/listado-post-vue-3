@@ -1,12 +1,15 @@
 <script setup>
-  import Title from './components/Title.vue';
-  import Body from './components/Body.vue';
+import Title from './components/Title.vue';
+import Body from './components/Body.vue';
+import Create from './components/Create.vue';
 </script>
 
 <template>
   <header>
     <div class="wrapper">
       <Title />
+      <Create />
+
       <Body />
     </div>
 
