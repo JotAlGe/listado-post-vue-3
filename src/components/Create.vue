@@ -2,22 +2,52 @@
     <div>
         <h4 class="title-create">Create a post</h4>
 
-        <div class="form">
+        <form class="form" @submit.prevent="savePost">
             <label for="title">
-                <input id="title" type="text" class="title-post">
+                <input placeholder="Title..." v-model="title" id="title" type="text" class="title-post">
             </label>
             <label for="body">
-                <input id="body" type="text" class="body-post">
+                <input placeholder="Body..." v-model="body" id="body" type="text" class="body-post">
             </label>
-            <button class="button-post">Post</button>
-        </div>
+            <button class="button-post" type="submit">Post</button>
+            <span v-if="message" class="message-success"> {{ message }} </span>
+        </form>
     </div>
 </template>
 <script>
 
 export default {
+    data() {
+        return {
+            title: '',
+            body: '',
+            message: ''
+        }
+    },
+    methods: {
+        async savePost() {
+            try {
+                const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
+                    method: 'POST',
+                    body: JSON.stringify({ title: this.title, body: this.body }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
 
+                if (response.ok) {
+                    this.message = '¡Post saved successfully!'
+                    this.title = ''
+                    this.body = ''
+                }
+                else throw new Error('¡Post failed!')
+            } catch (e) {
+                console.log(e);
+            }
+        }
+    }
 }
+
 </script>
 <style>
 .title-create {
@@ -39,10 +69,15 @@ button {
     border-radius: 15px;
     width: 250px;
     height: 50px;
+    cursor: pointer;
 }
 
 .button-post {
     background-color: lightgreen;
     width: 40%;
+}
+
+.message-success {
+    color: lightgreen
 }
 </style>
